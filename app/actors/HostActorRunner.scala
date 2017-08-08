@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 
 
-class HostActorRunner(profileService: MyService) {
+class ApiRunner(profileService: MyService) {
 
   val system: ActorSystem = ActorSystem("ActorSystem")
   implicit val executionContext = system.dispatcher
