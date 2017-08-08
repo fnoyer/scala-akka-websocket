@@ -14,10 +14,7 @@ object HostWebSocketActor{
 class HostWebSocketActor(out: ActorRef) extends Actor {
 
   val log = Logging(context.system, this)
-
   val actorSelection: ActorSelection = context.actorSelection("akka://ActorSystem/user/hostActor")
-
-  //val actorSelection: ActorSelection = context.actorSelection("/user/hostActor")
 
   def receive: PartialFunction[Any, Unit] = {
     case "init" =>
