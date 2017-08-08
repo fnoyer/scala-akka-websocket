@@ -2,7 +2,6 @@ package entities
 
 import akka.actor.ActorRef
 
-
 @SerialVersionUID(505L)
 object Tick extends Serializable
 
