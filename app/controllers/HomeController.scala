@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject._
 
-import actors.{ApiRunner, HostWebSocketActor}
+import actors.{ApiRunner, HostActor, HostWebSocketActor}
 import models.MyService
-import akka.actor.{ActorSystem}
+import akka.actor.{ActorSystem, Props}
 import akka.stream.Materializer
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
@@ -22,7 +22,6 @@ class HomeController @Inject()(myService: MyService,
 
   val runner = new ApiRunner(myService)
 
-
   /**
    * Create an Action to render an HTML page.
    *
@@ -38,3 +37,6 @@ class HomeController @Inject()(myService: MyService,
    ActorFlow.actorRef(out => HostWebSocketActor.props(out))
   }
 }
+
+
+//private val webSocketActorRef =

@@ -1,9 +1,10 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, Props}
-import akka.event.Logging
+import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.event.{Logging, LoggingReceive}
 import entities._
 import models.MyService
+
 import scala.collection.mutable
 
 
@@ -11,9 +12,9 @@ object HostActor {
   def props(profileService: MyService) = Props(new HostActor(profileService))
 }
 
-class HostActor(myService: MyService) extends Actor {
+class HostActor(myService: MyService) extends Actor with ActorLogging {
 
-  val log = Logging(context.system, this)
+  //val log = Logging(context.system, this)
 
   //All the web clients
   private val webClients = mutable.Set[ActorRef]()
@@ -24,7 +25,7 @@ class HostActor(myService: MyService) extends Actor {
     webClients.foreach(ref => ref ! a)
   }
 
-  override def receive: Receive = {
+  override def receive: Receive = LoggingReceive {
     case Register(ar) =>
       log.info("Host Actor :: Registered Web Client // amount of connected client = " +  webClients.size)
       webClients += ar

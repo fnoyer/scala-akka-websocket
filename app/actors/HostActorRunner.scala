@@ -13,6 +13,7 @@ class ApiRunner(myService: MyService) {
   implicit val executionContext = system.dispatcher
   private val hostActorRef = system.actorOf(Props(new HostActor(myService)), "hostActor")
 
+
   system.scheduler.schedule(0.microseconds, 5.seconds) {
     println("EXECUTION CONTENT FOR DEBUG IS " + executionContext)
    hostActorRef  ! Tick
