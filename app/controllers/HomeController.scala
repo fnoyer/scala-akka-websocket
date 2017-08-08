@@ -17,10 +17,15 @@ import play.api.mvc._
 @Singleton
 class HomeController @Inject()(myService: MyService,
                                cc: ControllerComponents)
-                              (implicit system: ActorSystem,
+                              (implicit sys: ActorSystem,
                                mat: Materializer) extends AbstractController(cc) {
 
-  val runner = new ApiRunner(myService)
+  val system: ActorSystem = ActorSystem("ActorSystem")
+  val hostActorRef = system.actorOf(Props(classOf[HostActor], myService), "hostActor")
+  val runner = new ApiRunner(myService,hostActorRef)
+
+  // Props(classOf[Ponger] = ActoRef
+  //val ponger = system.actorOf(Props(classOf[Ponger], pinger), "ponger")
 
   /**
    * Create an Action to render an HTML page.
