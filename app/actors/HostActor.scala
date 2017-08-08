@@ -1,19 +1,18 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, Props}
 import akka.event.Logging
 import entities._
 import models.ProfileService
-
 import scala.collection.mutable
 
+
 object HostActor {
-  //def props(profileService: ProfileService): Props = Props(classOf[HostActor], profileService)
   def props(profileService: ProfileService) = Props(new HostActor(profileService))
 }
 
 class HostActor(profileService: ProfileService) extends Actor {
-  
+
   val log = Logging(context.system, this)
 
   //All the web clients

@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject._
 
-import actors.{HostWebSocketActor, HostActorRunner}
+import actors.{HostActor, HostActorRunner, HostWebSocketActor}
 import models.ProfileService
-import akka.actor.ActorSystem
+import akka.actor.{ActorSystem, Props}
 import akka.stream.Materializer
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
@@ -19,10 +19,13 @@ import scala.concurrent.{ExecutionContext, Future}
 class HomeController @Inject()(profileService: ProfileService,
                                cc: ControllerComponents)
                               (implicit system: ActorSystem,
-                               mat: Materializer,
-                               ec: ExecutionContext) extends AbstractController(cc) {
+                               mat: Materializer) extends AbstractController(cc) {
+
+
+  //val hostActor = new HostActor(profileService: ProfileService)
 
   val runner = new HostActorRunner(profileService)
+
 
   /**
    * Create an Action to render an HTML page.

@@ -1,6 +1,7 @@
 package actors
 
 import akka.actor.{ActorSystem, Props}
+import akka.event.Logging
 import entities.Tick
 import models.ProfileService
 
@@ -10,12 +11,11 @@ import scala.language.postfixOps
 
 class HostActorRunner(profileService: ProfileService) {
 
-  val system: ActorSystem = ActorSystem("ActorSystem")
+  implicit val system: ActorSystem = ActorSystem("ActorSystem")
   implicit val executionContext = system.dispatcher
-  //val hostActorRef = system.actorOf(Props(classOf[HostActor], profileService))
-  val hostActorRef = system.actorOf(Props(new HostActor(profileService)), "hostActor")
+  var hostActorRef = system.actorOf(Props(new HostActor(profileService)), "hostActor")
 
   system.scheduler.schedule(0.microseconds, 5.seconds) {
-    hostActorRef ! Tick
+   hostActorRef  ! Tick
   }
 }
