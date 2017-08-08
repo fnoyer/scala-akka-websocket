@@ -13,8 +13,7 @@ object HostActor {
 }
 
 class HostActor(profileService: ProfileService) extends Actor {
-
-
+  
   val log = Logging(context.system, this)
 
   //All the web clients
