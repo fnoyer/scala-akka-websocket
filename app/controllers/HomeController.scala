@@ -2,14 +2,13 @@ package controllers
 
 import javax.inject._
 
-import actors.{HostActor, HostActorRunner, HostWebSocketActor}
+import actors.{HostActorRunner, HostWebSocketActor}
 import models.ProfileService
-import akka.actor.{ActorSystem, Props}
+import akka.actor.{ActorSystem}
 import akka.stream.Materializer
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
-import scala.concurrent.{ExecutionContext, Future}
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the

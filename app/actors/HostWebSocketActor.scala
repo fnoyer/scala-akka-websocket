@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, ActorSelection, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSelection, Props}
 import akka.event.Logging
 import entities.{Register, Unregister}
 import play.api.Logger
