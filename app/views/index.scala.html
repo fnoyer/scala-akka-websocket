@@ -1,0 +1,50 @@
+@(msg : String)(implicit request: RequestHeader)
+@import helper._
+
+@main("Home"){
+
+  <script data-main='@routes.Assets.versioned("javascripts/main.js")' type="text/javascript" src='@routes.Assets.versioned("lib/rxjs/rx.all.js")'></script>
+  <script data-main='@routes.Assets.versioned("javascripts/main.js")' type="text/javascript" src='@routes.Assets.versioned("lib/RxJS-DOM/rx.dom.min.js")'></script>
+
+  <script>
+          const hostSocket = new WebSocket("ws://localhost:9000/ws");
+
+          const onOpenObservable = Rx.Observable.fromEvent(hostSocket, 'open');
+          onOpenObservable.subscribe(
+                  e => {
+            console.log("Sending init to host" + e);
+          hostSocket.send("init")
+          },
+          err => console.error("Error receiving message from actor:" + err),
+                  () => console.log("Messaging completed!")
+          );
+
+          const onMessageObservable = Rx.Observable.fromEvent(hostSocket, 'message');
+          onMessageObservable.subscribe(
+                  e => console.log("Received message from actor: " + e.data),
+                  err => console.error("Error receiving message from actor: " + err),
+                  () => console.log("Messaging completed!")
+          );
+
+          const jsonMessageObservable = onMessageObservable
+                  .map(e => e.data)
+          .map(s => JSON.parse(s));
+
+  </script>
+
+    <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header">@msg</h1>
+        </div>
+          <!-- /.col-lg-12 -->
+      </div>
+        <!-- /.row -->
+    </div>
+      <!-- /.container-fluid -->
+  </div>
+    <!-- /#page-wrapper -->
+
+}
