@@ -1,10 +1,8 @@
 package actors
 
 import akka.actor.{ActorSystem, Props}
-import akka.event.Logging
 import entities.Tick
 import models.ProfileService
-
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
