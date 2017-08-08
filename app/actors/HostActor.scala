@@ -11,7 +11,7 @@ object HostActor {
   def props(profileService: MyService) = Props(new HostActor(profileService))
 }
 
-class HostActor(profileService: MyService) extends Actor {
+class HostActor(myService: MyService) extends Actor {
 
   val log = Logging(context.system, this)
 
@@ -34,7 +34,7 @@ class HostActor(profileService: MyService) extends Actor {
     case Tick =>
       if(webClients.size > 0) {
         log.info("Tick with some already registered clients")
-        infoWebClients(profileService.person)
+        infoWebClients(myService.person)
       }
       else{
         log.info("Tick with no registered clients")

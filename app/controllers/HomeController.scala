@@ -15,12 +15,12 @@ import play.api.mvc._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(profileService: MyService,
+class HomeController @Inject()(myService: MyService,
                                cc: ControllerComponents)
                               (implicit system: ActorSystem,
                                mat: Materializer) extends AbstractController(cc) {
 
-  val runner = new ApiRunner(profileService)
+  val runner = new ApiRunner(myService)
 
 
   /**
