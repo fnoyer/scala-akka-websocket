@@ -3,15 +3,15 @@ package actors
 import akka.actor.{Actor, ActorRef, Props}
 import akka.event.Logging
 import entities._
-import models.ProfileService
+import models.MyService
 import scala.collection.mutable
 
 
 object HostActor {
-  def props(profileService: ProfileService) = Props(new HostActor(profileService))
+  def props(profileService: MyService) = Props(new HostActor(profileService))
 }
 
-class HostActor(profileService: ProfileService) extends Actor {
+class HostActor(profileService: MyService) extends Actor {
 
   val log = Logging(context.system, this)
 
@@ -34,7 +34,7 @@ class HostActor(profileService: ProfileService) extends Actor {
     case Tick =>
       if(webClients.size > 0) {
         log.info("Tick with some already registered clients")
-        infoWebClients(profileService.personne)
+        infoWebClients(profileService.person)
       }
       else{
         log.info("Tick with no registered clients")

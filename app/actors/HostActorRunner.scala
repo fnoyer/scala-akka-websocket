@@ -2,12 +2,12 @@ package actors
 
 import akka.actor.{ActorSystem, Props}
 import entities.Tick
-import models.ProfileService
+import models.MyService
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
 
-class HostActorRunner(profileService: ProfileService) {
+class HostActorRunner(profileService: MyService) {
 
   val system: ActorSystem = ActorSystem("ActorSystem")
   implicit val executionContext = system.dispatcher

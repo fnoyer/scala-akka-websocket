@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 
 import actors.{HostActorRunner, HostWebSocketActor}
-import models.ProfileService
+import models.MyService
 import akka.actor.{ActorSystem}
 import akka.stream.Materializer
 import play.api.libs.streams.ActorFlow
@@ -15,13 +15,10 @@ import play.api.mvc._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(profileService: ProfileService,
+class HomeController @Inject()(profileService: MyService,
                                cc: ControllerComponents)
                               (implicit system: ActorSystem,
                                mat: Materializer) extends AbstractController(cc) {
-
-
-  //val hostActor = new HostActor(profileService: ProfileService)
 
   val runner = new HostActorRunner(profileService)
 
