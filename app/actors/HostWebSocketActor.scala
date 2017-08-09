@@ -12,16 +12,17 @@ object HostWebSocketActor{
 }
 
 class HostWebSocketActor(out: ActorRef) extends Actor with ActorLogging  {
-  //val log = Logging(context.system, this)
+
   val actorSelection: ActorSelection = context.actorSelection("akka://application/user/hostActor")
 
   def receive: PartialFunction[Any, Unit] = LoggingReceive {
     case "init" =>
+      println(s"${self.path} received init")
       //Logger.info("LOG CTX----> HWSA " + context +"HostWebSocketActor :: Init connection Host")
       actorSelection ! Register(self)
       out ! Json.stringify(Json.obj("message" -> "HostWebSocketActor"))
     case None =>
-      //Logger.info("LOG CTX----> HWSA" + context + "There are no questions")
+      Logger.info("LOG CTX----> HWSA" + context + "There are no questions")
       out ! Json.stringify(Json.obj("error" -> "no questions"))
     case Person(fn, ln) =>
       out ! Json.stringify(Json.obj("person" -> Json.obj("firstName" -> fn, "lastName" -> ln)))

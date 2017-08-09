@@ -35,6 +35,3 @@ class HomeController @Inject()(myService: MyService,
       ActorFlow.actorRef(out => HostWebSocketActor.props(out))
   }
 }
-
-
-//private val webSocketActorRef =

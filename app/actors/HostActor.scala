@@ -1,7 +1,7 @@
 package actors
 
-import javax.inject.Inject
 
+import javax.inject.Inject
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import akka.event.{Logging, LoggingReceive}
 import entities._
@@ -36,6 +36,7 @@ class HostActor @Inject() (myService: MyService) extends Actor with ActorLogging
       else{
         Logger.info("Tick with no registered clients")
       }
+    case Identify => sender()
     case x =>
       Logger.error(s"Received ill conceived message: $x")
       unhandled(x)
