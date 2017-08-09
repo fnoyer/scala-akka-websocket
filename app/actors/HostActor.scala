@@ -2,8 +2,8 @@ package actors
 
 
 import javax.inject.Inject
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
-import akka.event.{Logging, LoggingReceive}
+import akka.actor.{Actor, ActorLogging, ActorRef}
+import akka.event.{LoggingReceive}
 import entities._
 import models.MyService
 
@@ -17,26 +17,22 @@ class HostActor @Inject() (myService: MyService) extends Actor with ActorLogging
 
   //Send info to website
   def infoWebClients(a: Any): Unit = {
-    Logger.info(s"Sending to ${webClients.size} web clients message: $a")
+    Logger.info(s"Sending data to ${webClients.size} web clients and the data sent are : $a")
     webClients.foreach(ref => ref ! a)
   }
 
   override def receive: Receive = LoggingReceive {
     case Register(ar) =>
-      Logger.info(s"Host Actor :: Registered Web Client // amount of connected clients ${webClients.size}")
+      Logger.info(s"Host Actor :: Registering a new web client. There is ${webClients.size} connected client(s)")
       webClients += ar
     case Unregister(ar) =>
-      Logger.info(s"Host Actor :: Unregistered Web Client // amount of connected client ${webClients.size}")
+      Logger.info(s"Host Actor :: Unregistering a web client. There is ${webClients.size} remaining connected client(s)")
       webClients -= ar
     case Tick =>
+      Logger.info("Tick ")
       if(webClients.nonEmpty) {
-        Logger.info("Tick with some already registered clients")
         infoWebClients(myService.person)
       }
-      else{
-        Logger.info("Tick with no registered clients")
-      }
-    case Identify => sender()
     case x =>
       Logger.error(s"Received ill conceived message: $x")
       unhandled(x)

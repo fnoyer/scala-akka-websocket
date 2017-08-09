@@ -23,13 +23,8 @@
           onMessageObservable.subscribe(
                   e => console.log("Received message from actor: " + e.data),
                   err => console.error("Error receiving message from actor: " + err),
-                  () => console.log("Messaging completed!");
+                  () => console.log("Messaging completed!")
           );
-//
-//          const jsonMessageObservable = onMessageObservable
-//                  .map(e => e.data)
-//
-
   </script>
 
     <!-- Page Content -->

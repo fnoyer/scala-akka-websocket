@@ -8,6 +8,6 @@ case class City(nom : String)
 
 
 class MyService @Inject()(system: ActorSystem) {
-  val person = Person("Jorge","Medec")
+  val person = Person("Jorge","Medeck")
   val city= City("Paris")
 }

@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject._
 
-import actors.{HostActorRunner, HostActor, HostWebSocketActor}
+import actors.{HostWebSocketActor}
 import models.MyService
-import akka.actor.{ActorSystem, Props}
+import akka.actor.{ActorSystem}
 import akka.stream.Materializer
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
@@ -28,7 +28,7 @@ class HomeController @Inject()(myService: MyService,
    * a path of `/`.
    */
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index("Welcome to Websocket Example"))
+    Ok(views.html.index("Welcome to Websocket Example Open you WebBrowser Console Logging to see the data"))
   }
 
   def ws : WebSocket = WebSocket.accept[String, String] { request =>
