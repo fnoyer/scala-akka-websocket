@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject._
 
-import actors.{ApiRunner, HostActor, HostWebSocketActor}
+import actors.{HostActorRunner, HostActor, HostWebSocketActor}
 import models.MyService
 import akka.actor.{ActorSystem, Props}
 import akka.stream.Materializer
@@ -20,14 +20,6 @@ class HomeController @Inject()(myService: MyService,
                               (implicit sys: ActorSystem,
                                mat: Materializer) extends AbstractController(cc) {
 
-  val system: ActorSystem = ActorSystem("ActorSystem")
-  val runner = new ApiRunner(myService)
-  //val hostActorRef = system.actorOf(Props(classOf[HostActor], myService), "hostActor")
-  //val runner = new ApiRunner(myService,hostActorRef)
-
-  // Props(classOf[Ponger] = ActoRef
-  //val ponger = system.actorOf(Props(classOf[Ponger], pinger), "ponger")
-
   /**
    * Create an Action to render an HTML page.
    *
@@ -40,9 +32,6 @@ class HomeController @Inject()(myService: MyService,
   }
 
   def ws : WebSocket = WebSocket.accept[String, String] { request =>
-   ActorFlow.actorRef(out => HostWebSocketActor.props(out))
+      ActorFlow.actorRef(out => HostWebSocketActor.props(out))
   }
 }
-
-
-//private val webSocketActorRef =
