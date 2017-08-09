@@ -16,7 +16,6 @@ class HostWebSocketActor(out: ActorRef) extends Actor with ActorLogging  {
 
   def receive: PartialFunction[Any, Unit] = LoggingReceive {
     case "init" =>
-      println(s"${self.path} received init")
       actorSelection ! Register(self)
       out ! Json.stringify(Json.obj("message" -> "init message received from web client"))
     case Person(fn, ln) =>
