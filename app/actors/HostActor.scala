@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, Identify, Props}
 import akka.event.{Logging, LoggingReceive}
 import entities._
 import models.MyService
@@ -38,8 +38,10 @@ class HostActor(myService: MyService) extends Actor with ActorLogging {
         infoWebClients(myService.person)
       }
       else{
+        println(s"${self.path} received Tick")
         log.info("Tick with no registered clients")
       }
+    case Identify => sender()
     case x =>
       log.error("Received ill conceived message: {}", x)
       unhandled(x)

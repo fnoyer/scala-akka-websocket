@@ -21,8 +21,9 @@ class HomeController @Inject()(myService: MyService,
                                mat: Materializer) extends AbstractController(cc) {
 
   val system: ActorSystem = ActorSystem("ActorSystem")
-  val hostActorRef = system.actorOf(Props(classOf[HostActor], myService), "hostActor")
-  val runner = new ApiRunner(myService,hostActorRef)
+  val runner = new ApiRunner(myService)
+  //val hostActorRef = system.actorOf(Props(classOf[HostActor], myService), "hostActor")
+  //val runner = new ApiRunner(myService,hostActorRef)
 
   // Props(classOf[Ponger] = ActoRef
   //val ponger = system.actorOf(Props(classOf[Ponger], pinger), "ponger")

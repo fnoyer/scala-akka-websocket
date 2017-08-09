@@ -8,15 +8,14 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 
 
-class ApiRunner(myService: MyService, actoRef: ActorRef) {
+class ApiRunner(myService: MyService) {
 
   val system: ActorSystem = ActorSystem("ActorSystem")
   implicit val executionContext = system.dispatcher
-  //private val hostActorRef = system.actorOf(Props(hostActor), "hostActor")
-
+  val hostActorRef = system.actorOf(Props(classOf[HostActor], myService), "hostActor")
 
   system.scheduler.schedule(0.microseconds, 5.seconds) {
     println("EXECUTION CONTENT FOR DEBUG IS " + executionContext)
-    actoRef ! Tick
+    hostActorRef ! Tick
   }
 }
