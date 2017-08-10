@@ -29,3 +29,8 @@ lazy val root = project.in(file("."))
     )
   )
   .disablePlugins(PlayFilters)
+  
+herokuProcessTypes in Compile := Map(
+  "web" -> "target/universal/stage/bin/my-app -Dhttp.port=$PORT",
+  "worker" -> "java -jar target/universal/stage/lib/my-worker.jar"
+)
