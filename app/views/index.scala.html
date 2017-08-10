@@ -10,17 +10,14 @@
   <script type="application/javascript">
   
 		  var loc = window.location, new_uri;
-		  if (loc.protocol === "https:") {
-			new_uri = "wss:";
-			} 
-		  else {
-			new_uri = "ws:";
-		  }
-			new_uri += "//" + loc.host;
-		  new_uri += loc.pathname + "/ws";
-		  console.log("The new URI: " + new_uri);
 		  
-          const hostSocket = new WebSocket("wss://shrouded-plateau-63285.herokuapp.com/ws");
+		  if (loc.protocol === "https:") {new_uri = "wss:";} 
+		  else {new_uri = "ws:";}
+	      new_uri += "//" + loc.host;
+		  new_uri += loc.pathname + "ws";
+		  
+		  
+          const hostSocket = new WebSocket("new_uri");
 
           const onOpenObservable = Rx.Observable.fromEvent(hostSocket, 'open');
           onOpenObservable.subscribe(e => {
@@ -53,5 +50,4 @@
       <!-- /.container-fluid -->
   </div>
     <!-- /#page-wrapper -->
-
 }
