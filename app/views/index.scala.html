@@ -17,7 +17,7 @@
 		  new_uri += loc.pathname + "ws";
 		  console.log("the build uri: " + new_uri)
 		  
-          const hostSocket = new WebSocket("new_uri");
+          const hostSocket = new WebSocket(new_uri);
 
           const onOpenObservable = Rx.Observable.fromEvent(hostSocket, 'open');
           onOpenObservable.subscribe(e => {
