@@ -15,7 +15,6 @@
 		  else {new_uri = "ws:";}
 	      new_uri += "//" + loc.host;
 		  new_uri += loc.pathname + "ws";
-		  console.log("the build uri: " + new_uri)
 		  
           const hostSocket = new WebSocket(new_uri);
 
