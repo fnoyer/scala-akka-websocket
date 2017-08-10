@@ -18,8 +18,9 @@
 		  }
 			new_uri += "//" + loc.host;
 		  new_uri += loc.pathname + "/ws";
+		  console.log("The new URI: " + new_uri);
 		  
-          const hostSocket = new WebSocket("new_uri");
+          const hostSocket = new WebSocket("wss://shrouded-plateau-63285.herokuapp.com/ws");
 
           const onOpenObservable = Rx.Observable.fromEvent(hostSocket, 'open');
           onOpenObservable.subscribe(e => {
